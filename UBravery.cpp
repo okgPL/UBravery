@@ -225,32 +225,14 @@ void UBravery::play(int map)
 		while (true)
 		{
 			int number2 = rand() % 9;
-
-			if (map == 2) //Howling Abyss
 				if (number2 >= 7)
 				{
 					number2 -= 7;
 					if (number == number2) continue;		//Cannot set two the same spells
 					else
 					{
-						cout << ", " << sSpellsARAM[number2] << endl;
-						break;
-					}
-				}
-				else if (number == number2) continue;		//Cannot set two the same spells
-				else
-				{
-					cout << ", " << sSpells[number2] << endl;
-					break;
-				}
-			else //SR and TT
-				if (number2 >= 7)
-				{
-					number2 -= 7;
-					if (number == number2) continue;		//Cannot set two the same spells
-					else
-					{
-						cout << ", " << sSpellsNORMAL[number2] << endl;
+						if(map == 2) cout << ", " << sSpellsARAM[number2] << endl;
+						else cout << ", " << sSpellsNORMAL[number2] << endl;
 						break;
 					}
 				}
@@ -295,31 +277,11 @@ void UBravery::play(int map)
 			switch (i) //cases 5-1 checks if item is already used
 			{
 			case 5:			//Cassiopeia only
-				if (items[i] == items[4])
-				{
-					i--;
-					continue;
-				}
 			case 4:
-				if (items[i] == items[3])
-				{
-					i--;
-					continue;
-				}
 			case 3:
-				if (items[i] == items[2])
-				{
-					i--;
-					continue;
-				}
 			case 2:
-				if (items[i] == items[1])
-				{
-					i--;
-					continue;
-				}
 			case 1:
-				if (items[i] == items[0])
+				if (items[i] == items[i-1])
 				{
 					i--;
 					continue;
@@ -329,13 +291,8 @@ void UBravery::play(int map)
 				{
 				case 0:
 				{
-					if (champtype == MELEE && sItemsSR[items[i]] == "Runaan's Hurricane") //Runaan cannot be set to melee champs
-					{
-						--i;
-						continue;
-					}
-					//Hydras cannot be set to ranged champs
-					if (champtype == RANGED && (sItemsSR[items[i]] == "Ravenous Hydra" || sItemsSR[items[i]] == "Titanic Hydra"))
+					if ((champtype == MELEE && sItemsSR[items[i]] == "Runaan's Hurricane")
+					||  (champtype == RANGED && (sItemsSR[items[i]] == "Ravenous Hydra" || sItemsSR[items[i]] == "Titanic Hydra")))
 					{
 						--i;
 						continue;
@@ -369,17 +326,13 @@ void UBravery::play(int map)
 							continue;
 						}
 						else isSupportItem = true;
-					if (champtype == MELEE && sItemsTT[items[i]] == "Runaan's Hurricane")//Runaan cannot be set to melee champs
-					{
-						--i;
-						continue;
-					}
-					//Hydras cannot be set to ranged champs
-					if (champtype == RANGED && (sItemsTT[items[i]] == "Ravenous Hydra" || sItemsTT[items[i]] == "Titanic Hydra"))
-					{
-						--i;
-						continue;
-					}
+
+						if ((champtype == MELEE && sItemsSR[items[i]] == "Runaan's Hurricane")
+							|| (champtype == RANGED && (sItemsSR[items[i]] == "Ravenous Hydra" || sItemsSR[items[i]] == "Titanic Hydra")))
+						{
+							--i;
+							continue;
+						}
 					if (sSelectedChamp == "Cassiopeia") cout << i + 1 << ". " << sItemsTT[items[i]] << endl;
 					else cout << i + 2 << ". " << sItemsTT[items[i]] << endl;
 					break;
@@ -396,17 +349,13 @@ void UBravery::play(int map)
 							continue;
 						}
 						else isSupportItem = true; 
-					if (champtype == MELEE && sItemsARAM[items[i]] == "Runaan's Hurricane")
-					{
-						--i;
-						continue;
-					}
-					//Hydras cannot be set to ranged champs
-					if (champtype == RANGED && (sItemsARAM[items[i]] == "Ravenous Hydra" || sItemsARAM[items[i]] == "Titanic Hydra"))
-					{
-						--i;
-						continue;
-					}
+
+						if ((champtype == MELEE && sItemsSR[items[i]] == "Runaan's Hurricane")
+							|| (champtype == RANGED && (sItemsSR[items[i]] == "Ravenous Hydra" || sItemsSR[items[i]] == "Titanic Hydra")))
+						{
+							--i;
+							continue;
+						}
 					if (sSelectedChamp == "Cassiopeia") cout << i + 1 << ". " << sItemsARAM[items[i]] << endl;
 					else cout << i + 2 << ". " << sItemsARAM[items[i]] << endl;
 					break;
@@ -458,7 +407,7 @@ void UBravery::rules()
 	cout << " Dishonor to your family if you choose another spell while your selection is available !" << endl << endl;
 	cout << " 4. Buy items in the right order, you will" << endl;
 	cout << " Having boots in the early game roxx ! " << endl << " Doran's are for weaklings. You must run quickly to rush into the crowd! Being first in line is your goal." << endl;
-	cout << " Then you must purchase the items in the order listed, always starting from the left. " << endl << " If you have a stack item to last, that's even better: you will not surrender at 20 minutes." << endl << endl;
+	cout << " Then you must purchase the items in the order listed, always starting from the number 1. " << endl << " If you have a stack item to last, that's even better: you will not surrender at 20 minutes." << endl << endl;
 	cout << " 5. Forget wards, you will" << endl;
 	cout << " What is the advantage of seeing the enemy arrive?" << endl << " I imagine that at night, you do not turn on the light in your home to see the obstacles. Do the same on the Fields of Justice! " << endl;
 	cout << " If you have doubts about facechecking a bush, charge into it. You'll be set!" << endl << endl;

@@ -3,19 +3,32 @@
 
 //Include class header
 #include "UBravery.h"
-
+#include <time.h>
+#pragma warning(disable : 4996)
 int main()
 {
+	ofstream log( "log.txt");
+	auto old_rdbuf = clog.rdbuf();
+	clog.rdbuf(log.rdbuf());
+
+	time_t czas;
+	struct tm * ptr;
+	time(&czas);
+	ptr = localtime(&czas);
+	char * data = asctime(ptr);
+
+	clog <<"Log created on: "<< data << endl;
+	clog << "Setting up console...";
 	//Setting up console
 	setlocale(LC_ALL, ""); //To correctly print characters in console (especially in Credits)
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); //makes text white. REALLY white
 
-	srand(GetTickCount()); //As a seed I used GetTickCount()
-
+	srand(GetTickCount()); //As a seed I used GetTickCount(). It's milisecnods after boot
+	clog << " Done!" << endl << "Creating UB object:" << endl;
 	//Initialization
 	UBravery ub;	//Creates a class object
 	/* If UBravery::error has a value other than 0, something went wrong durning initialization
-	 * This if() checks that value and if it's other than 0 terminates the program */
+	 * This instruction checks that value and if it's other than 0 terminates the program */
 	if (ub.error != 0) return ub.error; 
 
 	/* Menu service code
@@ -43,9 +56,13 @@ int main()
 		case '3': ub.play(2); break; //HW (ARAM)
 		case '8': ub.rules(); break; //Rules
 		case '9': ub.credits(); break; //Credits
-		case '0': return 0; break; //End the program
+		case '0':
+		{
+			clog.rdbuf(old_rdbuf);
+			return 0; //End the program
 		}
-		cin.get(); //This is need to prevent double-randomizing or fast quitting from rules/credits
+		}
+		cin.get(); //This is required to prevent double-randomizing or fast quitting from rules/credits
 	}
 	return 0;
 }

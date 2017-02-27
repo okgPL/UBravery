@@ -3,38 +3,46 @@
 //Methods description is avaliable in UBravery.h file
 
 #include "UBravery.h"
-
 UBravery::UBravery()
 {	
 	//////////Version//////////
+	clog << "Checking data version...";
 	cout << "Checking data version" << endl;
 	if (loadData("Data\\patch", 0) == 1) return;
 	if (sDataVersion != "1.0")
 	{
 		cerr << "Invalid version of \"Data\" folder! Please re-download it (It will be in the same place as generator)";
+		clog << endl << "Invalid data version: " << sDataVersion << " != 1.0" << endl;
 		error = 1;
 		cin.get();
 		return;
 	}
+	clog << " Done!" << endl << "Loading champions...";
 	//////////Champions//////////
 	cout << "Loading champions" << endl;
 	if (loadData("Data\\Champions\\Melee", 1) == 1) return;
 	if (loadData("Data\\Champions\\Ranged", 7) == 1) return;
+	clog << "Loading items: boots...";
 	//////////Boots//////////
 	cout << "Loading items: boots" << endl;
 	if (loadData("Data\\Items\\boots", 2) == 1) return;
+	clog << "Loading items: SR...";
 	//////////Items: SR//////////
 	cout << "Loading items: SR" << endl;
 	if (loadData("Data\\Items\\SR", 3) == 1) return;
+	clog << "Loading items: TT...";
 	//////////Items: TT//////////
 	cout << "Loading items: TT" << endl;
 	if (loadData("Data\\Items\\TT", 4) == 1) return;
+	clog << "Loading items: ARAM...";
 	 //////////Items: ARAM//////////
 	cout << "Loading items: ARAM" << endl;
 	if (loadData("Data\\Items\\ARAM", 5) == 1) return;
+	clog << "Loading masteries...";
 	 //////////Masteries//////////
 	cout << "Loading masteries" << endl;
 	if (loadData("Data\\masteries", 6) == 1) return;
+	clog << "Loading adjectives...";
 	//////////Adjectives//////////
 	cout << "Loading adjectives" << endl;
 	if (loadData("Data\\adjectives", 8) == 1) return;
@@ -44,12 +52,15 @@ int UBravery::loadData(string filename, int element)
 {
 	string line; //bufor
 	int iCounter = 0; //lines counter
+	clog << endl << "Opening file" << endl;
 	ifstream ifFile(filename); //opens a file on specifed path
 	if (ifFile.is_open()) //This if checks if file is open
 	{
+		cout << "Counting lines to read" << endl;
 		while (getline(ifFile, line)) iCounter++; //counting lines
 		ifFile.close();
 		ifFile.open(filename); //re-open the file to be in the beginning of them (ios::beg doesn't work ): )
+		cout << "Reading data" << endl;
 		switch (element) //elements are described in cases
 		{
 		case 0: //Data Version

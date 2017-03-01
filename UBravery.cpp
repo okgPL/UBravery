@@ -17,33 +17,34 @@ UBravery::UBravery()
 		cin.get();
 		return;
 	}
-	clog << " Done!" << endl << "Loading champions...";
+	clog << " Done!" << endl;
 	//////////Champions//////////
+	clog << "Loading champions...";
 	cout << "Loading champions" << endl;
 	if (loadData("Data\\Champions\\Melee", 1) == 1) return;
 	if (loadData("Data\\Champions\\Ranged", 7) == 1) return;
-	clog << "Loading items: boots...";
 	//////////Boots//////////
+	clog << "Loading items: boots...";
 	cout << "Loading items: boots" << endl;
 	if (loadData("Data\\Items\\boots", 2) == 1) return;
-	clog << "Loading items: SR...";
 	//////////Items: SR//////////
+	clog << "Loading items: SR...";
 	cout << "Loading items: SR" << endl;
 	if (loadData("Data\\Items\\SR", 3) == 1) return;
-	clog << "Loading items: TT...";
 	//////////Items: TT//////////
+	clog << "Loading items: TT...";
 	cout << "Loading items: TT" << endl;
 	if (loadData("Data\\Items\\TT", 4) == 1) return;
-	clog << "Loading items: ARAM...";
 	 //////////Items: ARAM//////////
+	clog << "Loading items: ARAM...";
 	cout << "Loading items: ARAM" << endl;
 	if (loadData("Data\\Items\\ARAM", 5) == 1) return;
-	clog << "Loading masteries...";
 	 //////////Masteries//////////
+	clog << "Loading masteries...";
 	cout << "Loading masteries" << endl;
 	if (loadData("Data\\masteries", 6) == 1) return;
-	clog << "Loading adjectives...";
 	//////////Adjectives//////////
+	clog << "Loading adjectives...";
 	cout << "Loading adjectives" << endl;
 	if (loadData("Data\\adjectives", 8) == 1) return;
 }
@@ -52,77 +53,102 @@ int UBravery::loadData(string filename, int element)
 {
 	string line; //bufor
 	int iCounter = 0; //lines counter
-	clog << endl << "Opening file" << endl;
+	clog << endl << "Opening file: " << filename << endl;
 	ifstream ifFile(filename); //opens a file on specifed path
 	if (ifFile.is_open()) //This if checks if file is open
 	{
-		cout << "Counting lines to read" << endl;
+		clog << "Checking records... ";
 		while (getline(ifFile, line)) iCounter++; //counting lines
+		clog << iCounter << " records found." << endl;
 		ifFile.close();
 		ifFile.open(filename); //re-open the file to be in the beginning of them (ios::beg doesn't work ): )
-		cout << "Reading data" << endl;
 		switch (element) //elements are described in cases
 		{
 		case 0: //Data Version
 		{
+			clog << "Reading data...";
 			getline(ifFile, sPatch); 
 			getline(ifFile, sDataVersion); 
 			break;
 		}
 		case 1: //Melee Champions
 		{
+			clog << "Allocating memory." << endl;
 			sChampionsMelee = new string[iCounter];	//dynamicaly creates the array
+			clog << "Reading data...";
 			for (int i = 0; i < iCounter; i++) getline(ifFile, sChampionsMelee[i]); //filling array
 			iChampsMelee = iCounter; //sets the array size to int
+			clog << " Done!";
 			break; 
 		}						//all next cases does the same as case 1, but uses diffrent variables
 		case 2: //Boots
 		{
+			clog << "Allocating memory." << endl;
 			sBoots = new string[iCounter];
+			clog << "Reading data...";
 			for (int i = 0; i < iCounter; i++) getline(ifFile, sBoots[i]);
 			iBoots = iCounter;
+			clog << " Done!" << endl;
 			break;
 		}
 		case 3: //SR items
 		{
+			clog << "Allocating memory." << endl;
 			sItemsSR = new string[iCounter];
+			clog << "Reading data...";
 			for (int i = 0; i < iCounter; i++) getline(ifFile, sItemsSR[i]);
 			iItemsSR = iCounter;
+			clog << " Done!" << endl;
 			break;
 		}
 		case 4: //TT items
 		{
+			clog << "Allocating memory." << endl;
 			sItemsTT = new string[iCounter];
+			clog << "Reading data...";
 			for (int i = 0; i < iCounter; i++) getline(ifFile, sItemsTT[i]);
 			iItemsTT = iCounter;
+			clog << " Done!" << endl;
 			break;
 		}
 		case 5: //HW items
 		{
+			clog << "Allocating memory." << endl;
 			sItemsARAM = new string[iCounter];
+			clog << "Reading data...";
 			for (int i = 0; i < iCounter; i++) getline(ifFile, sItemsARAM[i]);
 			iItemsARAM = iCounter;
+			clog << " Done!" << endl;
 			break;
 		}
 		case 6: //Masteries
 		{
+			clog << "Allocating memory." << endl;
 			sMasteries = new string[iCounter];
+			clog << "Reading data...";
 			for (int i = 0; i < iCounter; i++) getline(ifFile, sMasteries[i]);
 			iMasteries = iCounter;
+			clog << " Done!" << endl;
 			break;
 		}
 		case 7: //Ranged champions
 		{
+			clog << "Allocating memory." << endl;
 			sChampionsRanged = new string[iCounter];
+			clog << "Reading data...";
 			for (int i = 0; i < iCounter; i++) getline(ifFile, sChampionsRanged[i]);
 			iChampsRanged = iCounter;
+			clog << " Done!" << endl;
 			break;
 		}
 		case 8: //Adjectives (like Feeder Yasuo)
 		{
+			clog << "Allocating memory." << endl;
 			sAdjectives = new string[iCounter];
+			clog << "Reading data...";
 			for (int i = 0; i < iCounter; i++) getline(ifFile, sAdjectives[i]);
 			iAdjectives = iCounter;
+			clog << " Done!" << endl;
 			break;
 		}
 		}
@@ -132,6 +158,7 @@ int UBravery::loadData(string filename, int element)
 	else //if (ifFile.is_open())
 	{
 		cerr << "Cannot open file: " <<filename<< endl;
+		clog << "ERROR: Cannot open file: " << filename << endl;
 		error = 1;
 		ifFile.close();
 		cin.get();

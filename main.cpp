@@ -29,7 +29,12 @@ int main()
 	UBravery ub;	//Creates a class object
 	/* If UBravery::error has a value other than 0, something went wrong durning initialization
 	 * This instruction checks that value and if it's other than 0 terminates the program */
-	if (ub.error != 0) return ub.error; 
+	if (ub.error != 0)
+	{
+		clog << "Initialization failed" << endl;
+		return ub.error;
+	}
+	else clog << "Initialization done!" << endl;
 
 	/* Menu service code
 	 * In infinite loop, prints the menu, waits for user pick and do it(or contniue loop if none of cases are correct) */

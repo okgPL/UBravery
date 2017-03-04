@@ -209,7 +209,7 @@ void UBravery::play(int map)
 			sSelectedChamp = sChampionsMelee[number];
 			champtype = MELEE;
 		}		
-		clog << "Champion: " << sSelectedChamp;
+		clog << "Champion: " << sSelectedChamp << endl;;
 
 		//////////First ability//////////
 		if (sSelectedChamp == "Udyr") number = rand() % 4;	//Udyr exception - he's able to max R

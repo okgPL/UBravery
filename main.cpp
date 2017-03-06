@@ -7,10 +7,11 @@
 #pragma warning(disable : 4996)
 int main()
 {
+	//log startup
 	ofstream log( "log.txt");
 	auto old_rdbuf = clog.rdbuf();
 	clog.rdbuf(log.rdbuf());
-
+	//First line of log: Time and date when created
 	time_t czas;
 	struct tm * ptr;
 	time(&czas);
@@ -54,6 +55,7 @@ int main()
 		//User pick
 		char pick;
 		cin >> pick;
+		clog << "User select: " << pick << endl;
 		switch (pick)
 		{
 		case '1': ub.play(0); break; //SR

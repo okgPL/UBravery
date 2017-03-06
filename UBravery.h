@@ -49,7 +49,12 @@ public:
 	UBravery();			//constructor
 	void rules();		//prints UB rules
 	void showVersion();	//shows current version
-	void play(int);		//randomize all what needed
+
+	///<summary>
+	///Runs a UBravery Randomizer
+	///<param name="map"> Describes a map </param>
+	///</summary>
+	void play(int map);	
 	void credits();		//prints Credits
 	~UBravery();		//destructor
 };

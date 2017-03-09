@@ -21,8 +21,8 @@ UBravery::UBravery()
 	//////////Champions//////////
 	clog << "Loading champions...";
 	cout << "Loading champions" << endl;
-	if (loadData("Data\\Champions\\Melee", 1) == 1) return;
-	if (loadData("Data\\Champions\\Ranged", 7) == 1) return;
+	if (loadData("Data\\Champions\\melee", 1) == 1) return;
+	if (loadData("Data\\Champions\\ranged", 7) == 1) return;
 	//////////Boots//////////
 	clog << "Loading items: boots...";
 	cout << "Loading items: boots" << endl;

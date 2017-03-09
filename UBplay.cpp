@@ -16,57 +16,27 @@ void UBravery::play(int map)
 		clog << "Map: " << map << endl;
 		ChampionType champtype;
 		//////////Champion//////////
-		int xadj = rand() % iAdjectives; //Randomizes an adjective to champion 
-		ifstream ignore("Data\\Champions\\Ignore");
-		string linia;
-		int number;
-		while (true)
+		int xadj = rand() % iAdjectives; //Randomizes adjective to champion 
+		int number = rand() % (iChampsMelee + iChampsRanged); //Randomizes champion
+															  //RANGED
+		if (number >= iChampsMelee)
 		{
-			number = rand() % (iChampsMelee + iChampsRanged); //Randomizes champion
-			if (number >= iChampsMelee)
-			{
-				number -= iChampsMelee;
-				while (getline(ignore, linia))
-				{
-					if (linia == sChampionsRanged[number])
-						error = 2;
-				}
-				if (error == 2)
-				{
-					error = 0;
-					clog << "Randomized champion: " << sChampionsRanged[number] << " is on blacklist. Rerolling..." << endl;
-					continue;
-				}
-				ignore.close();
-				//Some "Special adjectives"
-				if (sChampionsRanged[number] == "Teemo") cout << "Satan " << sChampionsRanged[number] << endl;
-				else if (sChampionsRanged[number] == "Ryze") cout << "Chopin " << sChampionsRanged[number] << endl;
+			number -= iChampsMelee;
+			//Some "Special adjectives"
+			if (sChampionsRanged[number] == "Teemo") cout << "Satan " << sChampionsRanged[number] << endl;
+			else if (sChampionsRanged[number] == "Ryze") cout << "Chopin " << sChampionsRanged[number] << endl;
 
-				else cout << sAdjectives[xadj] << " " << sChampionsRanged[number] << endl; //prints adjective and ranged champion
-				sSelectedChamp = sChampionsRanged[number];
-				champtype = RANGED;
-			}
-			else
-			{
-				while (getline(ignore, linia))
-				{
-					if (linia == sChampionsMelee[number])
-						error = 2;
-				}
-				if (error == 2)
-				{
-					error = 0;
-					clog << "Randomized champion: " << sChampionsMelee[number] << " is on blacklist. Rerolling..." << endl;
-					continue;
-				}
-				ignore.close();
-				cout << sAdjectives[xadj] << " " << sChampionsMelee[number] << endl; //prints adjective and ranged champion
-				sSelectedChamp = sChampionsMelee[number];
-				champtype = MELEE;
-			}
-			clog << "Champion: " << sSelectedChamp << endl;;
-			break;
+			else cout << sAdjectives[xadj] << " " << sChampionsRanged[number] << endl; //prints adjective and ranged champion
+			sSelectedChamp = sChampionsRanged[number];
+			champtype = RANGED;
 		}
+		else
+		{
+			cout << sAdjectives[xadj] << " " << sChampionsMelee[number] << endl; //prints adjective and ranged champion
+			sSelectedChamp = sChampionsMelee[number];
+			champtype = MELEE;
+		}
+		clog << "Champion: " << sSelectedChamp << endl;;
 
 		//////////First ability//////////
 		if (sSelectedChamp == "Udyr") number = rand() % 4;	//Udyr exception - he's able to max R

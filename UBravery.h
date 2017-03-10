@@ -40,7 +40,7 @@ class UBravery
 	int iAdjectives;
 
 	//other
-	string appversion = "1.0.1";				//Program version (shown in showVersion())
+	string appversion = "1.0.3";			//Program version (shown in showVersion())
 	string sDataVersion;					//Data version got from file
 	enum ChampionType { MELEE, RANGED };	//type of League champion's basic attack
 	int loadData(string, int);				//loads data, used only by constructor
@@ -55,8 +55,12 @@ public:
 	///<param name="map"> Describes a map </param>
 	///</summary>
 	void play(int map);	
+	void extras();
 	void credits();		//prints Credits
+	void blacklist();
 	~UBravery();		//destructor
 };
 void clear(); //Clears the screen
+
+
 #endif //UBRAVERY_H

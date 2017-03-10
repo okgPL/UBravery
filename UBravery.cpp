@@ -21,8 +21,8 @@ UBravery::UBravery()
 	//////////Champions//////////
 	clog << "Loading champions...";
 	cout << "Loading champions" << endl;
-	if (loadData("Data\\Champions\\Melee", 1) == 1) return;
-	if (loadData("Data\\Champions\\Ranged", 7) == 1) return;
+	if (loadData("Data\\Champions\\melee", 1) == 1) return;
+	if (loadData("Data\\Champions\\ranged", 7) == 1) return;
 	//////////Boots//////////
 	clog << "Loading items: boots...";
 	cout << "Loading items: boots" << endl;
@@ -246,4 +246,90 @@ void clear()
 		screen.dwSize.X * screen.dwSize.Y, topLeft, &written
 	);
 	SetConsoleCursorPosition(console, topLeft);
+}
+
+void UBravery::extras()
+{
+	while (true)
+	{
+		clear();
+		showVersion();
+		cout << "Extras menu" << endl << endl;
+		cout << "Champion blacklist: 1" << endl;
+		cout << "Rules: 2" << endl;
+		cout << "Credits: 3" << endl << endl;
+		cout << "Back: 0" << endl;
+		char x;
+		cin >> x;
+		switch (x)
+		{
+		case '1': blacklist(); break;
+		case '2': rules(); break;
+		case '3': credits(); break;
+		case '0': return;
+		}
+	}
+}
+
+void UBravery::blacklist()
+{
+	while (true)
+	{
+		bool isDone = false;
+		ifstream blacklist("Data\\Champions\\blacklist");
+		string line; int lines = 0;
+		while (getline(blacklist, line)) ++lines;
+		blacklist.close();
+		blacklist.open("Data\\Champions\\blacklist");
+		string *list = new string[lines];
+		for (int i = 0; i < lines; i++)
+		{
+			getline(blacklist, line);
+			list[i] = line;
+		}
+		blacklist.close();
+		clear();
+		showVersion();
+		cout << "Banned champions:" << endl;
+		for (int i = 0; i < lines; i++) cout << list[i] << endl;
+		cout << endl << "Enter a champion name to block/unblock, or 'E' to back." << endl;
+		string pick;
+		getline(cin, pick);
+		if (pick == "E" || pick == "e")
+		{
+			delete[] list;
+			return;
+		}
+		for (int i = 0; i < lines; i++)
+			if (list[i] == pick)
+			{
+				list[i] = "";
+				ofstream ofBlacklist("Data\\Champions\\blacklist");
+				for (int j = 0; j < lines; j++)
+					if (list[j] != "") ofBlacklist << list[j] << endl;
+				ofBlacklist.close();
+				isDone = true;
+			}
+		if (isDone) continue;
+		for (int i = 0; i < iChampsMelee; i++)
+			if (pick == sChampionsMelee[i])
+			{
+				ofstream ofBlacklist("Data\\Champions\\blacklist");
+				for (int j = 0; j < lines; j++) ofBlacklist << list[j] << endl;
+				ofBlacklist << pick << endl;
+				ofBlacklist.close();
+				isDone = true;
+			}
+		if (isDone) continue;
+		for (int i = 0; i < iChampsRanged; i++)
+			if (pick == sChampionsRanged[i])
+			{
+				ofstream ofBlacklist("Data\\Champions\\blacklist");
+				for (int j = 0; j < lines; j++) ofBlacklist << list[j] << endl;
+				ofBlacklist << pick << endl;
+				ofBlacklist.close();
+				isDone = true;
+			}
+		continue;
+	}
 }

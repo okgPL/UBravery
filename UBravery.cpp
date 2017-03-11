@@ -21,8 +21,8 @@ UBravery::UBravery()
 	//////////Champions//////////
 	clog << "Loading champions...";
 	cout << "Loading champions" << endl;
-	if (loadData("Data\\Champions\\melee", 1) == 1) return;
-	if (loadData("Data\\Champions\\ranged", 7) == 1) return;
+	if (loadData("Data\\Champions\\Melee", 1) == 1) return;
+	if (loadData("Data\\Champions\\Ranged", 7) == 1) return;
 	//////////Boots//////////
 	clog << "Loading items: boots...";
 	cout << "Loading items: boots" << endl;
@@ -180,16 +180,15 @@ void UBravery::credits()
 	cout << "v. " << appversion << endl;
 	cout << "For League patch: " << sPatch << endl;
 	cout << "Based on: http://www.ultimate-bravery.com/?lang=en" << endl << endl;
-	cout << "Main developer: Oskar 'okg' Kaczmarek" << endl;
-	cout << "Community manager: Rados³aw 'Fradzio' Go³ecki" << endl;
+	cout << "Code:\nOskar 'okg' Kaczmarek" << endl;
+	cout << "Data:\nRados³aw 'Fradzio' Go³ecki\nOskar 'okg' Kaczmarek" << endl;
 	cout << "Testers:\nKacper 'Wymiatacz' Dziubkowski" << endl;
 	cout << "Marcin 'Atom' Dziubkowski" << endl;
 	cout << "Rados³aw 'Fradzio' Go³ecki" << endl;
 	cout << "Jan 'Pinjesz' Jeschke" << endl;
 	cout << "Szymon 'Mnieciu' Podgórzec" << endl;
 	cout << "Remigiusz 'Dorthion' W³oszczyñski" << endl;
-	cout << endl << "Press ENTER to back. \n>";
-	cin.get();
+	cout << endl << "Press any key to back. \n>";
 	cin.get();
 }
 
@@ -215,7 +214,6 @@ void UBravery::rules()
 	cout << " If you have doubts about facechecking a bush, charge into it. You'll be set!" << endl << endl;
 	cout << " Source: http://www.ultimate-bravery.com/rules.php?lang=en" << endl;
 	cout << " Press ENTER to back.\n>";
-	cin.get();
 	cin.get();
 }
 
@@ -248,96 +246,4 @@ void clear()
 		screen.dwSize.X * screen.dwSize.Y, topLeft, &written
 	);
 	SetConsoleCursorPosition(console, topLeft);
-}
-
-void UBravery::extras()
-{
-	while (true)
-	{
-		clear();
-		showVersion();
-		cout << "Extras menu" << endl << endl;
-		cout << "Champion blacklist: 1" << endl;
-		cout << "Rules: 2" << endl;
-		cout << "Credits: 3" << endl << endl;
-		cout << "Back: 0" << endl<<">";
-		char x;
-		cin >> x;
-		switch (x)
-		{
-		case '1': blacklist(); break;
-		case '2': rules(); break;
-		case '3': credits(); break;
-		case '0': return;
-		}
-	}
-}
-
-void UBravery::blacklist()
-{
-	clog << "BCS opened" << endl;
-	while (true)
-	{
-		bool isDone = false;
-		ifstream blacklist("Data\\Champions\\blacklist");
-		string line; int lines = 0;
-		while (getline(blacklist, line)) ++lines;
-		blacklist.close();
-		blacklist.open("Data\\Champions\\blacklist");
-		string *list = new string[lines];
-		for (int i = 0; i < lines; i++)
-		{
-			getline(blacklist, line);
-			list[i] = line;
-		}
-		blacklist.close();
-		clear();
-		showVersion();
-		cout << "Banned champions:" << endl;
-		for (int i = 0; i < lines; i++) cout << list[i] << endl;
-		cout << endl << "Enter a champion name to block/unblock, or 'E' to back." << endl;
-		string pick;
-		cout << ">";
-		getline(cin, pick);
-		if (pick == "E" || pick == "e")
-		{
-			delete[] list;
-			clog << "BCS closed" << endl;
-			return;
-		}
-		for (int i = 0; i < lines; i++)
-			if (list[i] == pick)
-			{
-				list[i] = "";
-				ofstream ofBlacklist("Data\\Champions\\blacklist");
-				for (int j = 0; j < lines; j++)
-					if (list[j] != "") ofBlacklist << list[j] << endl;
-				ofBlacklist.close();
-				isDone = true;
-				clog << "Champion " << pick << " removed from blacklist" << endl;
-			}
-		if (isDone) continue;
-		for (int i = 0; i < iChampsMelee; i++)
-			if (pick == sChampionsMelee[i])
-			{
-				ofstream ofBlacklist("Data\\Champions\\blacklist");
-				for (int j = 0; j < lines; j++) ofBlacklist << list[j] << endl;
-				ofBlacklist << pick << endl;
-				ofBlacklist.close();
-				isDone = true;
-				clog << "Champion " << pick << " added to blacklist" << endl;
-			}
-		if (isDone) continue;
-		for (int i = 0; i < iChampsRanged; i++)
-			if (pick == sChampionsRanged[i])
-			{
-				ofstream ofBlacklist("Data\\Champions\\blacklist");
-				for (int j = 0; j < lines; j++) ofBlacklist << list[j] << endl;
-				ofBlacklist << pick << endl;
-				ofBlacklist.close();
-				clog << "Champion " << pick << " added to blacklist" << endl;
-				isDone = true;
-			}
-		continue;
-	}
 }

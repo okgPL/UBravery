@@ -17,12 +17,12 @@ void UBravery::play(int map)
 		clog << "Map: " << map << endl;
 		ChampionType champtype;
 		//////////Champion//////////
-		int xadj = rand() % iAdjectives; //Randomizes an adjective to champion 
-		ifstream ignore("Data\\Champions\\blacklist");
 		string linia;
 		int number;
+		int xadj = rand() % iAdjectives; //Randomizes an adjective to champion 
 		while (true)
 		{
+		ifstream ignore("Data\\Champions\\blacklist");
 			number = rand() % (iChampsMelee + iChampsRanged); //Randomizes champion
 			if (number >= iChampsMelee)
 			{

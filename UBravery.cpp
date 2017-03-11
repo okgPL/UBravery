@@ -188,7 +188,7 @@ void UBravery::credits()
 	cout << "Jan 'Pinjesz' Jeschke" << endl;
 	cout << "Szymon 'Mnieciu' Podgórzec" << endl;
 	cout << "Remigiusz 'Dorthion' W³oszczyñski" << endl;
-	cout << endl << "Press any key to back. \n>";
+	cout << endl << "Press ENTER to back. \n>";
 	cin.get();
 	cin.get();
 }

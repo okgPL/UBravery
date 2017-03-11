@@ -60,7 +60,7 @@ class UBravery
 	int iAdjectives;
 
 	///<summary>Program version (shown in showVersion())</summary>
-	string appversion = "1.0.3";
+	string appversion = "1.0.4";
 	///<summary>Data version (got from file)</summary>
 	string sDataVersion;
 	///<summary>

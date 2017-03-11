@@ -180,8 +180,8 @@ void UBravery::credits()
 	cout << "v. " << appversion << endl;
 	cout << "For League patch: " << sPatch << endl;
 	cout << "Based on: http://www.ultimate-bravery.com/?lang=en" << endl << endl;
-	cout << "Code:\nOskar 'okg' Kaczmarek" << endl;
-	cout << "Data:\nRados³aw 'Fradzio' Go³ecki\nOskar 'okg' Kaczmarek" << endl;
+	cout << "Main developer: Oskar 'okg' Kaczmarek" << endl;
+	cout << "Community manager: Rados³aw 'Fradzio' Go³ecki" << endl;
 	cout << "Testers:\nKacper 'Wymiatacz' Dziubkowski" << endl;
 	cout << "Marcin 'Atom' Dziubkowski" << endl;
 	cout << "Rados³aw 'Fradzio' Go³ecki" << endl;

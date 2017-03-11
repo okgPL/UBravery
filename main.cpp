@@ -4,7 +4,7 @@
 //Include class header
 #include "UBravery.h"
 #include <time.h>
-#pragma warning(disable : 4996) //I wanna use standard C++ fucntions, not Microsoft's "secured" one.
+#pragma warning(disable : 4996)
 int main()
 {
 	//log startup
@@ -49,7 +49,8 @@ int main()
 		cout << "The Twisted Treeline: 2" << endl;
 		cout << "Howling Abyss: 3" << endl;
 		cout << endl;
-		cout << "Extras: 4" << endl;
+		cout << "Rules: 8" << endl;
+		cout << "Credits: 9" << endl;
 		cout << "Exit: 0" << endl << ">";
 		//User pick
 		char pick;
@@ -60,7 +61,8 @@ int main()
 		case '1': ub.play(0); break; //SR
 		case '2': ub.play(1); break; //TT
 		case '3': ub.play(2); break; //HW (ARAM)
-		case '4': ub.extras(); break;
+		case '8': ub.rules(); break; //Rules
+		case '9': ub.credits(); break; //Credits
 		case '0':
 		{
 			clog.rdbuf(old_rdbuf);

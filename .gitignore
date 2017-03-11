@@ -2,6 +2,7 @@ Debug/
 Release/
 UBravery/
 x64/
+Data/Champions/blacklist
 *.vcxproj
 *.filters
 *.user

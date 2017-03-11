@@ -18,7 +18,7 @@ void UBravery::play(int map)
 		ChampionType champtype;
 		//////////Champion//////////
 		int xadj = rand() % iAdjectives; //Randomizes an adjective to champion 
-		ifstream ignore("Data\\Champions\\ignore");
+		ifstream ignore("Data\\Champions\\blacklist");
 		string linia;
 		int number;
 		while (true)

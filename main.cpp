@@ -4,7 +4,7 @@
 //Include class header
 #include "UBravery.h"
 #include <time.h>
-#pragma warning(disable : 4996)
+#pragma warning(disable : 4996) //I wanna use standard C++ fucntions, not Microsoft's "secured" one.
 int main()
 {
 	//log startup

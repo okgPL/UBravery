@@ -190,6 +190,7 @@ void UBravery::credits()
 	cout << "Remigiusz 'Dorthion' W³oszczyñski" << endl;
 	cout << endl << "Press any key to back. \n>";
 	cin.get();
+	cin.get();
 }
 
 void UBravery::rules()
@@ -214,6 +215,7 @@ void UBravery::rules()
 	cout << " If you have doubts about facechecking a bush, charge into it. You'll be set!" << endl << endl;
 	cout << " Source: http://www.ultimate-bravery.com/rules.php?lang=en" << endl;
 	cout << " Press ENTER to back.\n>";
+	cin.get();
 	cin.get();
 }
 
@@ -258,7 +260,7 @@ void UBravery::extras()
 		cout << "Champion blacklist: 1" << endl;
 		cout << "Rules: 2" << endl;
 		cout << "Credits: 3" << endl << endl;
-		cout << "Back: 0" << endl;
+		cout << "Back: 0" << endl<<">";
 		char x;
 		cin >> x;
 		switch (x)
@@ -273,6 +275,7 @@ void UBravery::extras()
 
 void UBravery::blacklist()
 {
+	clog << "BCS opened" << endl;
 	while (true)
 	{
 		bool isDone = false;
@@ -294,10 +297,12 @@ void UBravery::blacklist()
 		for (int i = 0; i < lines; i++) cout << list[i] << endl;
 		cout << endl << "Enter a champion name to block/unblock, or 'E' to back." << endl;
 		string pick;
+		cout << ">";
 		getline(cin, pick);
 		if (pick == "E" || pick == "e")
 		{
 			delete[] list;
+			clog << "BCS closed" << endl;
 			return;
 		}
 		for (int i = 0; i < lines; i++)
@@ -309,6 +314,7 @@ void UBravery::blacklist()
 					if (list[j] != "") ofBlacklist << list[j] << endl;
 				ofBlacklist.close();
 				isDone = true;
+				clog << "Champion " << pick << " removed from blacklist" << endl;
 			}
 		if (isDone) continue;
 		for (int i = 0; i < iChampsMelee; i++)
@@ -319,6 +325,7 @@ void UBravery::blacklist()
 				ofBlacklist << pick << endl;
 				ofBlacklist.close();
 				isDone = true;
+				clog << "Champion " << pick << " added to blacklist" << endl;
 			}
 		if (isDone) continue;
 		for (int i = 0; i < iChampsRanged; i++)
@@ -328,6 +335,7 @@ void UBravery::blacklist()
 				for (int j = 0; j < lines; j++) ofBlacklist << list[j] << endl;
 				ofBlacklist << pick << endl;
 				ofBlacklist.close();
+				clog << "Champion " << pick << " added to blacklist" << endl;
 				isDone = true;
 			}
 		continue;

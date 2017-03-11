@@ -5,6 +5,7 @@ void UBravery::play(int map)
 	//An infinite loop (because you can randomize not only once)
 	while (true)
 	{
+		string sSelectedChamp;
 		clear();
 		showVersion();
 		switch (map)	//Shows the current map

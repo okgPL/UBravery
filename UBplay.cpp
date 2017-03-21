@@ -240,12 +240,32 @@ void UBravery::play(int map)
 			if (map == 2) items[i] = rand() % (iItemsARAM);
 			switch (i) //cases 5-1 checks if item is already used
 			{
-			case 5:			//Cassiopeia only
+			case 5:		
+				if (items[i] == items[4])
+				{
+					i--;
+					continue;
+				}
 			case 4:
+				if (items[i] == items[3])
+				{
+					i--;
+					continue;
+				}
 			case 3:
+				if (items[i] == items[2])
+				{
+					i--;
+					continue;
+				}
 			case 2:
+				if (items[i] == items[1])
+				{
+					i--;
+					continue;
+				}
 			case 1:
-				if (items[i] == items[i - 1])
+				if (items[i] == items[0])
 				{
 					i--;
 					continue;

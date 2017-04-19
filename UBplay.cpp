@@ -2,6 +2,7 @@
 
 void UBravery::play(int map)
 {
+	
 	//An infinite loop (because you can randomize not only once)
 	while (true)
 	{
@@ -239,8 +240,8 @@ void UBravery::play(int map)
 			if (map == 1) items[i] = rand() % (iItemsTT);
 			if (map == 2) items[i] = rand() % (iItemsARAM);
 			switch (i) //cases 5-1 checks if item is already used
-			{
-			case 5:		
+			{			//It must be the same code in all cases to properly checking
+			case 5:
 				if (items[i] == items[4])
 				{
 					i--;
@@ -271,103 +272,47 @@ void UBravery::play(int map)
 					continue;
 				}
 			case 0:
+				string sSelectedItem;
 				switch (map)
 				{
 				case 0:
+					sSelectedItem = sItemsSR[items[i]];
+				case 1:
+					sSelectedItem = sItemsTT[items[i]];
+				case 2:
+					sSelectedItem = sItemsARAM[items[i]];
+				}
+				if (sSelectedItem == "Runaan's Hurricane" && champtype == MELEE)
 				{
-					if ((champtype == MELEE && sItemsSR[items[i]] == "Runaan's Hurricane")
-						|| (champtype == RANGED && (sItemsSR[items[i]] == "Ravenous Hydra" || sItemsSR[items[i]] == "Titanic Hydra")))
+					i--;
+					continue;
+				}
+				if ((sSelectedItem == "Titanic Hydra" || sSelectedItem == "Ravenous Hydra") && champtype == MELEE)
+				{
+					i--;
+					continue;
+				}
+				if (sSelectedItem == "Eye of the Equinox"
+					|| sSelectedItem == "Eye of the Watchers"
+					|| sSelectedItem == "Eye of the Oasis"
+					|| sSelectedItem == "Face of the Mountain"
+					|| sSelectedItem == "Frost Queen's Claim"
+					|| sSelectedItem == "Talisman of Ascension")
+					if (isSupportItem)
 					{
-						--i;
+						i--;
 						continue;
 					}
-					//Only one support item can be set: SR
-					if (sItemsSR[items[i]] == "Eye of the Equinox"
-						|| sItemsSR[items[i]] == "Eye of the Oasis"
-						|| sItemsSR[items[i]] == "Eye of the Watchers"
-						|| sItemsSR[items[i]] == "Face of the Mountain"
-						|| sItemsSR[items[i]] == "Frost Queen's Claim"
-						|| sItemsSR[items[i]] == "Talisman of Ascension")
-						if (isSupportItem)
-						{
-							--i;
-							continue;
-						}
-						else isSupportItem = true;
-						if (sSelectedChamp == "Cassiopeia")
-						{
-							cout << i + 1 << ". " << sItemsSR[items[i]] << endl;
-							clog << "Item " << i + 1 << ": " << sItemsSR[items[i]] << endl;
-						}
-						else
-						{
-							cout << i + 2 << ". " << sItemsSR[items[i]] << endl;
-							clog << "Item " << i + 2 << ": " << sItemsSR[items[i]] << endl;
-						}
-						break;
-				}
-				case 1:
+					else isSupportItem = true;
+				if (sSelectedChamp == "Cassiopeia")
 				{
-					//Only one support item can be set: TT
-					if (sItemsTT[items[i]] == "Face of the Mountain"
-						|| sItemsTT[items[i]] == "Frost Queen's Claim"
-						|| sItemsTT[items[i]] == "Talisman of Ascension")
-						if (isSupportItem)
-						{
-							--i;
-							continue;
-						}
-						else isSupportItem = true;
-
-						if ((champtype == MELEE && sItemsTT[items[i]] == "Runaan's Hurricane")
-							|| (champtype == RANGED && (sItemsTT[items[i]] == "Ravenous Hydra" || sItemsTT[items[i]] == "Titanic Hydra")))
-						{
-							--i;
-							continue;
-						}
-						if (sSelectedChamp == "Cassiopeia")
-						{
-							cout << i + 1 << ". " << sItemsTT[items[i]] << endl;
-							clog << "Item " << i + 1 << ": " << sItemsTT[items[i]] << endl;
-						}
-						else
-						{
-							cout << i + 2 << ". " << sItemsTT[items[i]] << endl;
-							clog << "Item " << i + 2 << ": " << sItemsTT[items[i]] << endl;
-						}
-						break;
+					cout << i + 1 << ". " << sSelectedItem << endl;
+					clog << "Item " << i + 1 << ": " << sSelectedItem << endl;
 				}
-				case 2:
+				else
 				{
-					//Only one support item can be set: HW
-					if (sItemsARAM[items[i]] == "Face of the Mountain"
-						|| sItemsARAM[items[i]] == "Frost Queen's Claim"
-						|| sItemsARAM[items[i]] == "Talisman of Ascension")
-						if (isSupportItem)
-						{
-							--i;
-							continue;
-						}
-						else isSupportItem = true;
-
-						if ((champtype == MELEE && sItemsARAM[items[i]] == "Runaan's Hurricane")
-							|| (champtype == RANGED && (sItemsARAM[items[i]] == "Ravenous Hydra" || sItemsARAM[items[i]] == "Titanic Hydra")))
-						{
-							--i;
-							continue;
-						}
-						if (sSelectedChamp == "Cassiopeia")
-						{
-							cout << i + 1 << ". " << sItemsARAM[items[i]] << endl;
-							clog << "Item " << i + 1 << ": " << sItemsARAM[items[i]] << endl;
-						}
-						else
-						{
-							cout << i + 2 << ". " << sItemsARAM[items[i]] << endl;
-							clog << "Item " << i + 2 << ": " << sItemsARAM[items[i]] << endl;
-						}
-						break;
-				}
+					cout << i + 2 << ". " << sSelectedItem << endl;
+					clog << "Item " << i + 2 << ": " << sSelectedItem << endl;
 				}
 			}
 		}

@@ -3,6 +3,7 @@
 //Methods description is avaliable in UBravery.h file
 
 #include "UBravery.h"
+#include <conio.h>
 UBravery::UBravery()
 {	
 	//////////Version//////////
@@ -190,7 +191,6 @@ void UBravery::credits()
 	cout << "Remigiusz 'Dorthion' W³oszczyñski" << endl;
 	cout << endl << "Press ENTER to back. \n>";
 	cin.get();
-	cin.get();
 }
 
 void UBravery::rules()
@@ -215,7 +215,6 @@ void UBravery::rules()
 	cout << " If you have doubts about facechecking a bush, charge into it. You'll be set!" << endl << endl;
 	cout << " Source: http://www.ultimate-bravery.com/rules.php?lang=en" << endl;
 	cout << " Press ENTER to back.\n>";
-	cin.get();
 	cin.get();
 }
 
@@ -252,23 +251,40 @@ void clear()
 
 void UBravery::extras()
 {
+	int a = 1;
 	while (true)
 	{
-		clear();
+		system("cls");
 		showVersion();
 		cout << "Extras menu" << endl << endl;
-		cout << "Champion blacklist: 1" << endl;
-		cout << "Rules: 2" << endl;
-		cout << "Credits: 3" << endl << endl;
-		cout << "Back: 0" << endl<<">";
-		char x;
-		cin >> x;
-		switch (x)
+		cout << "Champion blacklist [";
+		if (a == 1) cout << "*]" << endl; else cout << " ]" << endl;
+		cout << "Rules              [";
+		if (a == 2) cout << "*]" << endl; else cout << " ]" << endl;
+		cout << "Extras             [";
+		if (a == 3) cout << "*]" << endl; else cout << " ]" << endl;
+		cout << endl;
+		cout << "Exit               [";
+		if (a == 0) cout << "*]" << endl; else cout << " ]" << endl;
+		int y = _getch();
+		switch (y)
 		{
-		case '1': blacklist(); break;
-		case '2': rules(); break;
-		case '3': credits(); break;
-		case '0': return;
+		case 72: //ARROW UP
+			if (a == 0) a = 3;
+			else if (a != 1) a--;
+			break;
+		case 80: //ARROW DOWN
+			if (a == 3) a = 0;
+			else if (a != 0) a++;
+			break;
+		case 13: //ENTER
+			switch (a)
+			{
+			case 1: blacklist(); break;
+			case 2: rules(); break;
+			case 3: credits(); break;
+			case 0: return;
+			}
 		}
 	}
 }

@@ -67,7 +67,6 @@ int main()
 			return 0; //End the program
 		}
 		}
-		cin.get(); //This is required to prevent double-randomizing or fast quitting from rules/credits
 	}
 	return 0;
 }
